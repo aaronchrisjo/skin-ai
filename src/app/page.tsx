@@ -1,3 +1,5 @@
+import { FiSearch } from "react-icons/fi";
+
 export default function Home() {
   return (
     <main className="bg-black text-white min-h-screen p-4 flex flex-col gap-8">
@@ -7,15 +9,19 @@ export default function Home() {
       </div>
 
       {/* page content */}
-      <div className="space-y-4 bg-slate-500 flex-1">
+      <div className="space-y-4 flex-1">
         <div className="space-y-4">
           <p className="text-xl font-semibold">Tips for taking a good photo</p>
-          <div className="">
-            <p>Place the camera in focus</p>
-            <p className="text-xs">
-              The camera must be 10-15cm from your skin.
-            </p>
+          <div className="flex flex-row gap-4">
+            <FiSearch className="h-6 w-6" />
+            <div>
+              <p>Place the camera in focus</p>
+              <p className="text-xs">
+                The camera must be 10-15cm from your skin.
+              </p>
+            </div>
           </div>
+
           <p>Good lighting is key</p>
           <p>Clear, sharp images work best</p>
         </div>
