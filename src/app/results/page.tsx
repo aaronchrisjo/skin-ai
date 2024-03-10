@@ -1,32 +1,15 @@
-import { useState } from "react";
-import {
-  FiSearch,
-  FiSun,
-  FiCamera,
-  FiImage,
-  FiFolderPlus,
-} from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
+import { FiSun } from "react-icons/fi";
+import { FiCamera } from "react-icons/fi";
+import { FiImage } from "react-icons/fi";
+import { FiFolderPlus } from "react-icons/fi";
 
-export default function Home() {
-  const handleLibraryButtonClick = () => {
-    const fileInput = document.getElementById("fileInput");
-    if (fileInput) {
-      fileInput.click();
-    }
-  };
-
-  const handleFileSelect = (files: FileList | null) => {
-    if (files && files.length > 0) {
-      // Handle the selected file(s) here
-      console.log("Selected file:", files[0]);
-    }
-  };
-
+export default function Results() {
   return (
     <main className="bg-black text-white min-h-screen p-8 flex flex-col gap-10">
       {/* page title */}
       <div className="flex justify-center">
-        <p className="text-2xl font-extrabold">Take a photo</p>
+        <p className="text-2xl font-extrabold">Results</p>
       </div>
 
       {/* page content */}
@@ -75,17 +58,7 @@ export default function Home() {
           <FiCamera className="size-6" />
           Take photo
         </button>
-        <input
-          type="file"
-          accept="image/*"
-          id="fileInput"
-          style={{ display: "none" }}
-          onChange={(e) => handleFileSelect(e.target.files)}
-        />
-        <button
-          className="bg-blue-500 py-4 px-8 rounded-2xl flex justify-center items-center gap-4"
-          onClick={handleLibraryButtonClick}
-        >
+        <button className="bg-blue-500 py-4 px-8 rounded-2xl flex justify-center items-center gap-4">
           <FiFolderPlus className="size-6" />
           Choose from library
         </button>
