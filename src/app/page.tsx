@@ -1,10 +1,22 @@
+"use client";
+
 import { FiSearch } from "react-icons/fi";
 import { FiSun } from "react-icons/fi";
 import { FiCamera } from "react-icons/fi";
 import { FiImage } from "react-icons/fi";
 import { FiFolderPlus } from "react-icons/fi";
+import { useState } from "react";
+import Link from "next/link";
+import { useEdgeStore } from "@/lib/edgestore";
 
 export default function Home() {
+  const [file, setFile] = useState<File>();
+  const { edgestore } = useEdgeStore();
+  const [urls, setUrls] = useState<{
+    url: string;
+    thumbnailUrl: string | null;
+  }>();
+
   return (
     <main className="bg-black text-white min-h-screen p-8 flex flex-col gap-10">
       {/* page title */}
@@ -58,10 +70,45 @@ export default function Home() {
           <FiCamera className="size-6" />
           Take photo
         </button>
-        <button className="bg-blue-500 py-4 px-8 rounded-2xl flex justify-center items-center gap-4">
+
+        <input
+          type="file"
+          onChange={(e) => {
+            setFile(e.target.files?.[0]);
+          }}
+        />
+
+        <button
+          className="bg-blue-500 py-4 px-8 rounded-2xl flex justify-center items-center gap-4"
+          onClick={async () => {
+            if (file) {
+              const res = await edgestore.myPublicImages.upload({
+                file,
+                onProgressChange(progress) {
+                  console.log(progress);
+                },
+              });
+              //save your data here
+              setUrls({
+                url: res.url,
+                thumbnailUrl: res.thumbnailUrl,
+              });
+            }
+          }}
+        >
           <FiFolderPlus className="size-6" />
-          Choose from library
+          Upload from Gallery
         </button>
+        {urls?.url && (
+          <Link href={urls.url} target="_blank">
+            URL
+          </Link>
+        )}
+        {urls?.thumbnailUrl && (
+          <Link href={urls.thumbnailUrl} target="_blank">
+            Thumbnail
+          </Link>
+        )}
       </div>
     </main>
   );
